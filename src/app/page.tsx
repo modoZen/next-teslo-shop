@@ -1,5 +1,11 @@
-import Image from "next/image";
+import { titleFont } from "@/config/fonts";
 
 export default function Home() {
-  return <div>Hola Mundo</div>;
+  return (
+    <main>
+      <div>Hola Mundo</div>
+      <div className={`${titleFont.className} font-bold`}>Hola Mundo</div>
+      <div className={titleFont.className}>Hola Mundo</div>
+    </main>
+  );
 }

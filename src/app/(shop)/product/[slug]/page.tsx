@@ -1,5 +1,6 @@
 import { QuantitySelector } from "@/components/product/quantity-selector/QuantitySelector";
 import { SizeSelector } from "@/components/product/size-selector/SizeSelector";
+import { MobileSlideShow } from "@/components/ui/slide-show/MobileSlideShow";
 import { SlideShow } from "@/components/ui/slide-show/SlideShow";
 import { titleFont } from "@/config/fonts";
 import { initialData } from "@/seed/seed";
@@ -20,7 +21,16 @@ export default async function Home({
   return (
     <div className="mt-5 mb-20 grid grid-cols-1 md:grid-cols-3 gap-3">
       <div className="col-span-1 md:col-span-2 ">
-        <SlideShow title={product.title} images={product.images} />
+        <MobileSlideShow
+          title={product.title}
+          images={product.images}
+          className="block md:hidden"
+        />
+        <SlideShow
+          title={product.title}
+          images={product.images}
+          className="hidden md:block"
+        />
       </div>
 
       <div className="col-span-1 px-5 ">

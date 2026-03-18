@@ -1,3 +1,4 @@
+import { SizeSelector } from "@/components/product/size-selector/SizeSelector";
 import { titleFont } from "@/config/fonts";
 import { initialData } from "@/seed/seed";
 import { notFound } from "next/navigation";
@@ -23,6 +24,11 @@ export default async function Home({
           {product.title}
         </h1>
         <p className="text-lg mb-5">${product.price.toFixed(2)}</p>
+
+        <SizeSelector
+          availableSizes={product.sizes}
+          selectedSize={product.sizes[0]}
+        />
 
         <button className="btn-primary my-5">Agregar al carrito</button>
 

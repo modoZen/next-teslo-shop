@@ -1,5 +1,6 @@
 import { QuantitySelector } from "@/components/product/quantity-selector/QuantitySelector";
 import { SizeSelector } from "@/components/product/size-selector/SizeSelector";
+import { SlideShow } from "@/components/ui/slide-show/SlideShow";
 import { titleFont } from "@/config/fonts";
 import { initialData } from "@/seed/seed";
 import { notFound } from "next/navigation";
@@ -18,7 +19,9 @@ export default async function Home({
 
   return (
     <div className="mt-5 mb-20 grid md:grid-cols-3 gap-3">
-      <div className="col-span-1 md:col-span-2 ">hola</div>
+      <div className="col-span-1 md:col-span-2 ">
+        <SlideShow title={product.title} images={product.images} />
+      </div>
 
       <div className="col-span-1 px-5 ">
         <h1 className={`${titleFont.className} antialiased font-bold text-xl`}>

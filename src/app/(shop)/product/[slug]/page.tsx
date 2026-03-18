@@ -1,3 +1,4 @@
+import { QuantitySelector } from "@/components/product/quantity-selector/QuantitySelector";
 import { SizeSelector } from "@/components/product/size-selector/SizeSelector";
 import { titleFont } from "@/config/fonts";
 import { initialData } from "@/seed/seed";
@@ -29,6 +30,8 @@ export default async function Home({
           availableSizes={product.sizes}
           selectedSize={product.sizes[0]}
         />
+
+        <QuantitySelector quantity={2} />
 
         <button className="btn-primary my-5">Agregar al carrito</button>
 

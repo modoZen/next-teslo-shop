@@ -1,5 +1,4 @@
 import { ProductGrid } from "@/components/products/product-grid/ProductGrid";
-import { Sidebar } from "@/components/ui/sidebar/Sidebar";
 import { Title } from "@/components/ui/title/Title";
 import { initialData } from "@/seed/seed";
 
@@ -9,8 +8,6 @@ export default function Home() {
   return (
     <>
       <Title title="Tienda" subtitle="Todos los productos" className="mb-2" />
-
-      <Sidebar />
 
       <ProductGrid products={products} />
     </>

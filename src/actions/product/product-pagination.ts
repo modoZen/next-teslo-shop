@@ -13,8 +13,13 @@ export const getPaginationProductsWithImages = async () => {
       },
     });
 
-    console.log(products);
-
-    return products;
-  } catch (error) {}
+    return {
+      products: products.map((product) => ({
+        ...product,
+        images: product.productImages.map(({ url }) => url),
+      })),
+    };
+  } catch {
+    throw new Error("No se pudo cargar los productos");
+  }
 };

@@ -1,8 +1,21 @@
 import { prisma } from "@/lib/prisma";
 
-export const getPaginationProductsWithImages = async () => {
+interface Props {
+  page?: number;
+  take?: number;
+}
+
+export const getPaginationProductsWithImages = async ({
+  page = 1,
+  take = 12,
+}: Props) => {
+  if (isNaN(Number(page))) page = 1;
+  if (page < 1) page = 1;
+
   try {
     const products = await prisma.product.findMany({
+      take,
+      skip: (page - 1) * take,
       include: {
         productImages: {
           take: 2,

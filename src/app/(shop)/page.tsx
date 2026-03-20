@@ -1,6 +1,7 @@
 import { getPaginationProductsWithImages } from "@/actions/product/product-pagination";
 import { ProductGrid } from "@/components/products/product-grid/ProductGrid";
 import { Title } from "@/components/ui/title/Title";
+import { redirect } from "next/navigation";
 
 interface Props {
   searchParams: Promise<{ page?: string }>;
@@ -12,6 +13,10 @@ export default async function Home({ searchParams }: Props) {
   const { products } = await getPaginationProductsWithImages({
     page: pageParams,
   });
+
+  if (products.length === 0) {
+    redirect("/");
+  }
 
   return (
     <>

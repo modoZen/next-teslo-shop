@@ -1,3 +1,5 @@
+import { Gender } from "@/generated/prisma/enums";
+
 export interface Product {
   id: string;
   description: string;
@@ -9,7 +11,7 @@ export interface Product {
   tags: string[];
   title: string;
   //todo type: Type;
-  gender: Category;
+  gender: Gender;
 }
 
 export type Category = "men" | "women" | "kid" | "unisex";

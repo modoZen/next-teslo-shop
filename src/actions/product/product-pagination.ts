@@ -1,13 +1,16 @@
+import { Gender } from "@/generated/prisma/enums";
 import { prisma } from "@/lib/prisma";
 
 interface Props {
   page?: number;
   take?: number;
+  gender?: Gender;
 }
 
 export const getPaginationProductsWithImages = async ({
   page = 1,
   take = 12,
+  gender,
 }: Props) => {
   if (isNaN(Number(page))) page = 1;
   if (page < 1) page = 1;
@@ -25,10 +28,17 @@ export const getPaginationProductsWithImages = async ({
           },
         },
       },
+      where: {
+        gender,
+      },
     });
 
     // 2. Obtener el total de páginas
-    const totalCount = await prisma.product.count();
+    const totalCount = await prisma.product.count({
+      where: {
+        gender,
+      },
+    });
     const totalPages = Math.ceil(totalCount / take);
 
     return {

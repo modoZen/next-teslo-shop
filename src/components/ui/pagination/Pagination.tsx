@@ -1,6 +1,9 @@
 "use client";
+
+import { generatePagination } from "@/utils/generatePaginationNumber";
+import clsx from "clsx";
 import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
+import { redirect, usePathname, useSearchParams } from "next/navigation";
 import { IoChevronBackOutline, IoChevronForwardOutline } from "react-icons/io5";
 
 interface Props {
@@ -10,7 +13,14 @@ interface Props {
 export const Pagination = ({ totalPages }: Props) => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const currentPage = Number(searchParams.get("page")) ?? 1;
+  const pageString = searchParams.get("page");
+  const currentPage = Number(pageString) || 1;
+
+  if (currentPage <= 0) {
+    redirect("/");
+  }
+
+  const allPages = generatePagination(currentPage, totalPages);
 
   const createPageUrl = (pageNumber: number | string) => {
     const params = new URLSearchParams(searchParams);
@@ -44,30 +54,22 @@ export const Pagination = ({ totalPages }: Props) => {
             </Link>
           </li>
 
-          <li className="page-item">
-            <a
-              className="page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
-              href="#"
-            >
-              1
-            </a>
-          </li>
-          <li className="page-item active">
-            <a
-              className="page-link relative block py-1.5 px-3 rounded border-0 bg-blue-600 outline-none transition-all duration-300 text-white hover:text-white hover:bg-blue-600 shadow-md focus:shadow-md"
-              href="#"
-            >
-              2 <span className="visually-hidden"></span>
-            </a>
-          </li>
-          <li className="page-item">
-            <a
-              className="page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
-              href="#"
-            >
-              3
-            </a>
-          </li>
+          {allPages.map((page, index) => (
+            <li key={page + "-" + index} className="page-item">
+              <Link
+                className={clsx(
+                  "page-link relative block py-1.5 px-3 rounded border-0 outline-none transition-all duration-300 text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none",
+                  {
+                    "bg-blue-600 shadow-sm text-white hover:text-white hover:bg-blue-700":
+                      page === currentPage,
+                  },
+                )}
+                href={createPageUrl(page)}
+              >
+                {page}
+              </Link>
+            </li>
+          ))}
 
           <li className="page-item">
             <Link

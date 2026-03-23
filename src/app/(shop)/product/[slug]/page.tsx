@@ -1,9 +1,9 @@
+import { getProductBySlug } from "@/actions/product/get-product-by-slug";
 import { QuantitySelector } from "@/components/product/quantity-selector/QuantitySelector";
 import { SizeSelector } from "@/components/product/size-selector/SizeSelector";
 import { MobileSlideShow } from "@/components/ui/slide-show/MobileSlideShow";
 import { SlideShow } from "@/components/ui/slide-show/SlideShow";
 import { titleFont } from "@/config/fonts";
-import { initialData } from "@/seed/seed";
 import { notFound } from "next/navigation";
 
 export default async function Home({
@@ -12,7 +12,7 @@ export default async function Home({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const product = initialData.products.find((p) => p.slug === slug);
+  const product = await getProductBySlug(slug);
 
   if (!product) {
     notFound();

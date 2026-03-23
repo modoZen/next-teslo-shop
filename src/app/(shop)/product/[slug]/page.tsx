@@ -1,6 +1,9 @@
+export const revalidate = 604800; // 7 dias
+
 import { getProductBySlug } from "@/actions/product/get-product-by-slug";
 import { QuantitySelector } from "@/components/product/quantity-selector/QuantitySelector";
 import { SizeSelector } from "@/components/product/size-selector/SizeSelector";
+import { StockLabel } from "@/components/product/stock-label/StockLabel";
 import { MobileSlideShow } from "@/components/ui/slide-show/MobileSlideShow";
 import { SlideShow } from "@/components/ui/slide-show/SlideShow";
 import { titleFont } from "@/config/fonts";
@@ -34,6 +37,8 @@ export default async function Home({
       </div>
 
       <div className="col-span-1 px-5 ">
+        <StockLabel slug={product.slug} />
+
         <h1 className={`${titleFont.className} antialiased font-bold text-xl`}>
           {product.title}
         </h1>

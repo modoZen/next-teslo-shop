@@ -1,14 +1,13 @@
 export const revalidate = 604800; // 7 dias
 
 import { getProductBySlug } from "@/actions/product/get-product-by-slug";
-import { QuantitySelector } from "@/components/product/quantity-selector/QuantitySelector";
-import { SizeSelector } from "@/components/product/size-selector/SizeSelector";
 import { StockLabel } from "@/components/product/stock-label/StockLabel";
 import { MobileSlideShow } from "@/components/ui/slide-show/MobileSlideShow";
 import { SlideShow } from "@/components/ui/slide-show/SlideShow";
 import { titleFont } from "@/config/fonts";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { AddToCart } from "./ui/addToCart";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -70,14 +69,7 @@ export default async function Home({
         </h1>
         <p className="text-lg mb-5">${product.price.toFixed(2)}</p>
 
-        <SizeSelector
-          availableSizes={product.sizes}
-          selectedSize={product.sizes[0]}
-        />
-
-        <QuantitySelector quantity={2} />
-
-        <button className="btn-primary my-5">Agregar al carrito</button>
+        <AddToCart product={product} />
 
         <h3 className="font-bold text-sm">{product.description}</h3>
       </div>

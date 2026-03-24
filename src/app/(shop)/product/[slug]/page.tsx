@@ -7,7 +7,33 @@ import { StockLabel } from "@/components/product/stock-label/StockLabel";
 import { MobileSlideShow } from "@/components/ui/slide-show/MobileSlideShow";
 import { SlideShow } from "@/components/ui/slide-show/SlideShow";
 import { titleFont } from "@/config/fonts";
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
+
+type Props = {
+  params: Promise<{ slug: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+};
+
+export async function generateMetadata(
+  { params }: Props,
+  // parent: ResolvingMetadata,
+): Promise<Metadata> {
+  const slug = (await params).slug;
+
+  // fetch post information
+  const product = await getProductBySlug(slug);
+
+  return {
+    title: product?.title ?? "Producto no encontrado",
+    description: product?.description ?? "",
+    openGraph: {
+      title: product?.title ?? "Producto no encontrado",
+      description: product?.description ?? "",
+      images: [`/products/${product?.images[1]}`],
+    },
+  };
+}
 
 export default async function Home({
   params,

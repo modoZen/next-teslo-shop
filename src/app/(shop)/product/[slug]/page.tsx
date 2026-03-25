@@ -7,7 +7,7 @@ import { SlideShow } from "@/components/ui/slide-show/SlideShow";
 import { titleFont } from "@/config/fonts";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { AddToCart } from "./ui/addToCart";
+import { AddToCart } from "./ui/AddToCart";
 
 type Props = {
   params: Promise<{ slug: string }>;

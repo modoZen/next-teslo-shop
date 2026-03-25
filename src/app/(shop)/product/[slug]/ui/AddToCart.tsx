@@ -19,6 +19,7 @@ export const AddToCart = ({ product }: Props) => {
     setPosted(true);
     if (!size) return;
     console.log({ size, quantity });
+    // TODO add to cart
   };
 
   return (

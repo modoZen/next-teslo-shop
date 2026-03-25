@@ -18,8 +18,8 @@ export interface CartProduct {
   id: string;
   slug: string;
   title: string;
-  price: string;
-  quantity: string;
+  price: number;
+  quantity: number;
   size: Size;
   image: string;
 }

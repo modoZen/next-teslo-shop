@@ -58,11 +58,11 @@ export const TopMenu = () => {
         </Link>
         <Link
           className="m-2 p-2 rounded-md transition-all hover:bg-gray-100"
-          href="/cart"
+          href={totalItemsInCart === 0 && loaded ? "/empty" : "/cart"}
         >
           <div className="relative">
             {loaded && totalItemsInCart > 0 && (
-              <span className="absolute text-xs rounded-full font-bold bg-blue-500 text-white px-1 -top-2 -right-2">
+              <span className="fade-in absolute text-xs rounded-full font-bold bg-blue-500 text-white px-1 -top-2 -right-2">
                 {totalItemsInCart}
               </span>
             )}

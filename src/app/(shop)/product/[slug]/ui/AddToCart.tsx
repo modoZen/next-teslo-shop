@@ -2,8 +2,8 @@
 
 import { QuantitySelector } from "@/components/product/quantity-selector/QuantitySelector";
 import { SizeSelector } from "@/components/product/size-selector/SizeSelector";
-import { Product } from "@/generated/prisma/client";
-import { Size } from "@/interfaces/product.interface";
+import { Product, Size } from "@/interfaces/product.interface";
+import { useCartStore } from "@/store/cart/cart-store";
 import { useState } from "react";
 
 interface Props {
@@ -11,6 +11,8 @@ interface Props {
 }
 
 export const AddToCart = ({ product }: Props) => {
+  const addProductToCart = useCartStore((state) => state.addProductToCart);
+
   const [size, setSize] = useState<Size>();
   const [quantity, setQuantity] = useState<number>(1);
   const [posted, setPosted] = useState(false);
@@ -18,8 +20,21 @@ export const AddToCart = ({ product }: Props) => {
   const addToCart = () => {
     setPosted(true);
     if (!size) return;
-    console.log({ size, quantity });
-    // TODO add to cart
+
+    const cartProduct = {
+      id: product.id,
+      slug: product.slug,
+      title: product.title,
+      price: product.price,
+      quantity,
+      image: product.images[0],
+      size,
+    };
+
+    addProductToCart(cartProduct);
+    setPosted(false);
+    setQuantity(1);
+    setSize(undefined);
   };
 
   return (

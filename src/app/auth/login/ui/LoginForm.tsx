@@ -1,16 +1,16 @@
 "use client";
 
 import { authenticate } from "@/actions/auth/login";
+import clsx from "clsx";
 import Link from "next/link";
 import { useActionState } from "react";
+import { IoInformationOutline } from "react-icons/io5";
 
 export const LoginForm = () => {
   const [state, formAction, isPending] = useActionState(
     authenticate,
     undefined,
   );
-
-  console.log({ state, isPending });
 
   return (
     <form action={formAction} className="flex flex-col">
@@ -28,9 +28,29 @@ export const LoginForm = () => {
         name="password"
       />
 
-      <button type="submit" className="btn-primary">
+      <button
+        type="submit"
+        className={clsx("btn-primary", {
+          "btn-primary": !isPending,
+          "btn-disabled": isPending,
+        })}
+        disabled={isPending}
+      >
         Ingresar
       </button>
+
+      <div
+        className="flex h-8 items-end space-x-1"
+        aria-live="polite"
+        aria-atomic="true"
+      >
+        {state === "CredentialsSignin" && (
+          <div className="mb-2 flex flex-row">
+            <IoInformationOutline className="h-5 w-5 text-red-500" />
+            <p className="text-sm text-red-500">{state}</p>
+          </div>
+        )}
+      </div>
 
       {/* divisor l ine */}
       <div className="flex items-center my-5">

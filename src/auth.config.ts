@@ -21,7 +21,7 @@ export const authConfig = {
 
         const { email, password } = parsedCredentials.data;
 
-        console.log({ email, password });
+        console.log({ lml: { email, password } });
 
         // Buscar el correo
 

@@ -3,14 +3,23 @@
 import { authenticate } from "@/actions/auth/login";
 import clsx from "clsx";
 import Link from "next/link";
-import { useActionState } from "react";
+import { useRouter } from "next/navigation";
+import { useActionState, useEffect } from "react";
 import { IoInformationOutline } from "react-icons/io5";
 
 export const LoginForm = () => {
+  const router = useRouter();
   const [state, formAction, isPending] = useActionState(
     authenticate,
     undefined,
   );
+
+  useEffect(() => {
+    if (state === "Success") {
+      router.replace("/");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state]);
 
   return (
     <form action={formAction} className="flex flex-col">

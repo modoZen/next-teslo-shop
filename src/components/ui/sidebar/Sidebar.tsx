@@ -71,7 +71,10 @@ export const Sidebar = () => {
           <span className="ml-3 text-xl">Ordenes</span>
         </Link>
         <Link
-          href="/"
+          href="/auth/login"
+          onClick={() => {
+            closeSideMenu();
+          }}
           className="flex items-center mt-10 p-2 hover:bg-gray-200 rounded transition-all"
         >
           <IoLogInOutline size={30} />
@@ -80,6 +83,7 @@ export const Sidebar = () => {
         <button
           onClick={() => {
             logout();
+            closeSideMenu();
           }}
           className="flex w-full items-center mt-10 p-2 hover:bg-gray-200 rounded transition-all cursor-pointer"
         >
